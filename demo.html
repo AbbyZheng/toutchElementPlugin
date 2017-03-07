@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <script src="./dist/toutchElement.min.js"></script>
+    <style>
+        a{
+            padding:5px;
+        }
+        div{
+            font-size: 30px;
+            margin-bottom:20px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="demo">
+    <div id="main" class="nav">
+        2222<br/><br/>
+        2222<br/><br/>
+        2222<br/><br/>
+        2222<br/><br/>2222<br/><br/>
+        2222<br/><br/>
+        2222<br/><br/>
+        2222<br/><br/>
+        2222<br/><br/>
+        2222<br/><br/>
+        2222<br/><br/>
+    </div>
+</div>
+<script>
+    window.onload = function(){
+        let pullDown = new toutchElement({
+            target: '#demo',
+            scroller: '#main',
+            detectScroll: true,
+            onPullDown({ translateY }) {
+                let classList = document.getElementById('main').classList
+                if (translateY > 45) {
+                    classList.remove('pull-down')
+                    classList.add('pull-up')
+                } else {
+                    classList.add('pull-down')
+                    classList.remove('pull-up')
+                }
+            },
+            onnew(){
+                console.log(2222)
+            },
+            onPullDownEnd({ translateY }) {
+                let classList = document.getElementById('main').classList
+                classList.remove('pull-down')
+                classList.remove('pull-up')
+                if (translateY > 45) {
+                    this.preventDefault()
+                    classList.add('refreshing')
+
+                    setTimeout(()=>{
+                        this.animateTo(0, 0)
+                        classList.remove('refreshing')
+                        this.animateToOrigin()
+                    },500)
+
+                }
+            }
+        })
+        pullDown.init()
+        pullDown.emit('onnew')
+        console.log(pullDown)
+    }
+</script>
+</body>
+</html>

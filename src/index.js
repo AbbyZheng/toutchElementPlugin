@@ -4,7 +4,7 @@
 import * as DEFUALTOPTIONS from './config/default.config'
 import * as COMMON from  './util/common'
 
-export default class toutchElement{
+export default class ToutchElement{
     constructor(options){
         this.options = Object.assign({}, DEFUALTOPTIONS.defaultOptions, options)
         this.state = Object.assign({}, DEFUALTOPTIONS.defaultState)
@@ -272,4 +272,4 @@ export default class toutchElement{
     }
 }
 
-window.toutchElement = toutchElement;
+window.ToutchElement = ToutchElement;
